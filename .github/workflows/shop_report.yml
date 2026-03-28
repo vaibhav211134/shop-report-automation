@@ -33,6 +33,12 @@ jobs:
           WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
           FAMILY_NUMBERS: ${{ secrets.FAMILY_NUMBERS }}
           SHOP_ORDER: ${{ secrets.SHOP_ORDER }}
+
+          GMAIL_TOKEN_DATA: ${{ secrets.GMAIL_TOKEN_JSON }} 
+        run: |
+          # Create the token.json file from the secret
+          echo "$GMAIL_TOKEN_DATA" > token.json
+          
         run: python main.py
 
       - name: Save Data and Token Updates
