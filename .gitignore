@@ -1,0 +1,32 @@
+# Python System Files
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+.pytest_cache/
+
+# Google API Secrets (CRITICAL - DO NOT SHARE)
+token.json
+credentials.json
+
+# Client & Business Data
+client_config.yaml
+data/*
+!data/.gitkeep
+!data/latest_summary.json
+!data/history.json
+!data/last_message.txt
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
+data/*.csv
+data/*.json
+data/*.xlsx
+data/*.xls
+
+# OS specific
+.DS_Store
+Thumbs.db

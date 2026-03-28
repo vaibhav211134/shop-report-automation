@@ -1,0 +1,29 @@
+shop_order:
+  - SITARAM AND SONS
+  - SITARAM SHANKAR LAL
+  - SITARAM SHYAM SUNDER
+  - SITARAMS
+family_numbers:
+  - "911111111111"
+  - "922222222222"
+rows:
+  - Voucher Type: Sales
+    Company Name: SITARAM AND SONS
+    Debit Amount: 1000
+    Credit Amount: 0
+  - Voucher Type: Sales Return
+    Company Name: SITARAM AND SONS
+    Debit Amount: 0
+    Credit Amount: 100
+  - Voucher Type: Payment
+    Company Name: SITARAM AND SONS
+    Debit Amount: 200
+    Credit Amount: 0
+  - Voucher Type: Sales
+    Company Name: SITARAM SHANKAR LAL
+    Debit Amount: 500
+    Credit Amount: 0
+  - Voucher Type: Payment
+    Company Name: SITARAM SHANKAR LAL
+    Debit Amount: 50
+    Credit Amount: 0
