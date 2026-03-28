@@ -38,8 +38,7 @@ jobs:
         run: |
           # Create the token.json file from the secret
           echo "$GMAIL_TOKEN_DATA" > token.json
-          
-        run: python main.py
+          python main.py
 
       - name: Save Data and Token Updates
         if: always()
