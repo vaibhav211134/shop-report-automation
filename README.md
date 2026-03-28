@@ -35,28 +35,22 @@ Each run:
 
 ## Architecture
 
-```
-main.py                      ← entry point, orchestrates the full pipeline
-│
-├── gmail_downloader.py      ← OAuth Gmail API → downloads Tally export → data/
-├── data_processor.py        ← pandas analysis (sales, returns, expenses per shop)
-├── formatters.py            ← builds Telegram message + WhatsApp parameters
-├── telegram_sender.py       ← Telegram Bot API
-├── whatsapp_sender.py       ← Meta WhatsApp Cloud API
-├── ai_analyst.py            ← Claude API → generates plain-English insight
-├── data_writer.py           ← persists JSON summaries for dashboard
-│
-├── config/
-│   ├── settings.py          ← single config source (.env + client_config.yaml)
-│   └── logger.py            ← rotating file logger (5 MB, 7 backups)
-│
-├── dashboard/
-│   └── app.py               ← Streamlit dashboard
-│
-├── data/                    ← downloaded reports + JSON summaries (gitignored)
-├── logs/                    ← automation.log (gitignored)
-└── tests/                   ← 32 unit tests, no real credentials needed
-```
+| File | Purpose |
+|---|---|
+| `main.py` | Entry point — orchestrates the full pipeline |
+| `gmail_downloader.py` | OAuth Gmail API → downloads Tally export → `data/` |
+| `data_processor.py` | pandas analysis — net sales, returns, expenses per shop |
+| `formatters.py` | Builds Telegram message + WhatsApp parameters |
+| `telegram_sender.py` | Sends via Telegram Bot API |
+| `whatsapp_sender.py` | Sends via Meta WhatsApp Cloud API |
+| `ai_analyst.py` | Claude API → generates plain-English daily insight |
+| `data_writer.py` | Persists JSON summaries for the dashboard |
+| `config/settings.py` | Single config source — loads `.env` + `client_config.yaml` |
+| `config/logger.py` | Rotating file logger (5 MB per file, 7 backups) |
+| `dashboard/app.py` | Streamlit dashboard |
+| `data/` | Downloaded reports + JSON summaries — gitignored |
+| `logs/` | `automation.log` — gitignored |
+| `tests/` | 32 unit tests, no real credentials needed |
 
 **Data flow**
 
