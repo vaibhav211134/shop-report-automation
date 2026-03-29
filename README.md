@@ -15,21 +15,31 @@ This system replaced that entirely.
 
 ---
 
-## What It Does
+# 🚀 What It Does
 
-The pipeline runs **twice every day on its own** via GitHub Actions — no server, no manual trigger.
+The pipeline runs **twice every day** on its own via **GitHub Actions** — no server, no manual trigger.
 
-```
-9:00 AM  →  Full report of yesterday   (net sales + expenses per shop + totals)
-6:00 PM  →  Sales flash for today      (net sales per shop + running total)
-```
+### ⏰ Automation Schedule
 
-Each run:
-1. Connects to Gmail and downloads the latest Tally export (CSV or Excel)
-2. Analyses the data with pandas — net sales, returns, expenses per shop
-3. Formats a report for Telegram and a template message for WhatsApp
-4. Delivers both simultaneously to all configured recipients
-5. Logs everything to a rotating file — so if it ever fails at 3 AM, you know why
+| Time | Report Type | Key Metrics |
+| :---: | :---: | :---: |
+| **11:00 AM** | 📅 Full Yesterday Report | Net Sales + Expenses + Totals |
+| **7:00 PM** | ⚡ Today's Sales Flash | Net Sales + Running Totals |
+
+<br />
+
+### 🔄 The Execution Pipeline
+*Each run follows a precise 5-step workflow:*
+
+**1. 📥 Automated Ingestion** Connects to Gmail and downloads the latest Tally exports (CSV or Excel).
+
+**2. 📊 Data Analysis** Analyzes the data with `pandas` — calculating net sales, returns, and expenses per shop.
+
+**3. ✍️ Dynamic Formatting** Formats a rich report for Telegram and a structured template message for WhatsApp.
+
+**4. 📲 Instant Delivery** Delivers both reports simultaneously to all configured recipients.
+
+**5. 📁 Resilient Logging** Logs everything to a rotating file — so if it ever fails at 3 AM, you know why.
 
 ---
 
@@ -52,13 +62,21 @@ Each run:
 | `logs/` | `automation.log` — gitignored |
 | `tests/` | 32 unit tests, no real credentials needed |
 
-**Data flow**
+## 📊 Data Flow
 
-```
-Gmail API → data/report.xlsx → pandas → summary dict ─┬→ Telegram
-                                                        └→ WhatsApp
-```
+```mermaid
+graph LR
+    A["📧 Gmail API"] -->|Download| B["📁 data/report.xlsx"]
+    B -->|Process| C["🐼 pandas"]
+    C -->|Aggregate| D["📦 summary_dict"]
+    D --> E["🔵 Telegram"]
+    D --> F["🟢 WhatsApp"]
 
+    %% Styling for better visuals
+    style A fill:#ea4335,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#150458,stroke:#333,stroke-width:2px,color:#fff
+    style E fill:#0088cc,stroke:#333,color:#fff
+    style F fill:#25D366,stroke:#333,color:#fff
 ---
 
 ## Tech Stack
@@ -92,12 +110,17 @@ Gmail API → data/report.xlsx → pandas → summary dict ─┬→ Telegram
 ```
 ---
 
-## Setup
+# ⚙️ Setup & Configuration
 
-### 1. Clone and install
+Follow these steps to get the automation pipeline running in your local environment.
+
+---
+
+### 1️. Clone and Install
+First, bring the repository to your machine and install the necessary dependencies.
 
 ```bash
-git clone https://github.com/your-username/retail-report-automation.git
+git clone [https://github.com/your-username/retail-report-automation.git](https://github.com/your-username/retail-report-automation.git)
 cd retail-report-automation
 pip install -r requirements.txt
 ```
@@ -106,13 +129,6 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-```
-
-```ini
-TELEGRAM_BOT_TOKEN=...     # from @BotFather on Telegram
-TELEGRAM_CHAT_ID=...       # your group or channel ID
-WHATSAPP_TOKEN=...         # Meta permanent token
-WHATSAPP_PHONE_ID=...      # Meta phone number ID
 ```
 
 ### 3. Set up client config
@@ -192,15 +208,37 @@ Every run appends to `logs/automation.log`. Rotates at 5 MB, keeps 7 backups.
 
 ---
 
-## Adding a New Client
+# 🚀 Scalability: Onboarding a New Business
 
-This system is built to be client-agnostic. Every business-specific value lives in `client_config.yaml`.
+The architecture is strictly **client-agnostic**. All business-specific logic is decoupled from the core engine, meaning the pipeline can be scaled to new retail chains in minutes with **zero code changes**.
 
-To onboard a new business:
-1. Create their `client_config.yaml` — shop names, phone numbers, Tally column names, WhatsApp template names
-2. Run Gmail OAuth once with their account
-3. Add their credentials as GitHub Secrets
-4. Done — no Python files change
+---
+
+### 🛠️ The 4-Step Onboarding Process
+
+**1. Define Business Logic**
+Populate the `client_config.yaml` with the new business's metadata:
+*Shop names, recipient phone numbers, Tally column mappings, and WhatsApp template IDs.*
+
+**2. Authentication Handshake**
+Run the Gmail OAuth flow once using the new client’s credentials to generate a secure `token.json`.
+
+**3. Secure Secret Injection**
+Upload the encoded configuration and tokens as **GitHub Secrets**.
+
+**4. Instant Activation**
+The system is live. The GitHub Action will now pick up the new configuration and start delivering reports immediately.
+
+<br />
+
+| Feature | Implementation |
+| :--- | :--- |
+| **Logic Separation** | 100% YAML-based |
+| **Code Changes** | **None** required |
+| **Deployment Time** | < 5 Minutes |
+
+> [!TIP]
+> **Zero-Touch Maintenance:** Because the core Python files remain untouched during onboarding, there is no risk of introducing regressions when adding new businesses to the pipeline.
 
 ---
 
