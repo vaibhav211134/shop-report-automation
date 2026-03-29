@@ -59,20 +59,34 @@ Gmail API → Tally export → pandas → summary
 
 ---
 
-## What the report looks like
+## What the Report Looks Like
 
 ```
-📦 Sales Report — 24 Jun 2025
-
-🏪 SHOP ONE      ₹3,50,000
-🏪 SHOP TWO      ₹3,40,000
-🏪 SHOP THREE    ₹3,55,000
-🏪 SHOP FOUR     ₹3,55,000
---------------------------------
-
-📊 Total Net Sales   ₹14,00,000
-💸 Total Expenses       ₹28,500
-
+Complete Report of 28 Mar 2026
+ 
+ 
+ 🏪 SHOP ONE
+ 💰 Sales: ₹93,456
+ 📤 Exp: ₹7,654
+ 
+ 🏪 SHOP TWO
+ 💰 Sales: ₹89,210
+ 📤 Exp: ₹6549
+ 
+ 🏪 SHOP THREE
+ 💰 Sales: ₹92,450
+ 📤 Exp: ₹6025
+ 
+ 🏪 SHOP FOUR
+ 💰 Sales: ₹85,330
+ 📤 Exp: ₹3100
+ 
+ ─────────────────────
+ 
+ 📊 Total Sales: ₹3,60,446
+ 💸 Total Exp: ₹23,328
+ 
+ This is an automated daily report.
 ```
 
 ---
