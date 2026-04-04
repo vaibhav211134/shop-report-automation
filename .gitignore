@@ -9,6 +9,7 @@ __pycache__/
 # Google API Secrets (CRITICAL - DO NOT SHARE)
 token.json
 credentials.json
+gcp_key.json
 
 # Client & Business Data
 client_config.yaml

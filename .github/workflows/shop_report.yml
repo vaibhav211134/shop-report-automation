@@ -2,8 +2,8 @@ name: Shop Report Automation (V2 Modular)
 
 on:
   schedule:
-    - cron: '30 5 * * *'
-    - cron: '35 13 * * *'
+    - cron: "30 5 * * *"
+    - cron: "35 13 * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,11 +18,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           pip install --upgrade pip
+          pip install google-cloud-bigquery pandas-gbq
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Modular Pipeline
@@ -33,10 +34,9 @@ jobs:
           WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
           FAMILY_NUMBERS: ${{ secrets.FAMILY_NUMBERS }}
           SHOP_ORDER: ${{ secrets.SHOP_ORDER }}
-
-          GMAIL_TOKEN_DATA: ${{ secrets.GMAIL_TOKEN_JSON }} 
+          GMAIL_TOKEN_DATA: ${{ secrets.GMAIL_TOKEN_JSON }}
+          GCP_KEY_JSON: ${{ secrets.GCP_KEY_JSON }}
         run: |
-          # Create the token.json file from the secret
           echo "$GMAIL_TOKEN_DATA" > token.json
           python main.py
 
@@ -45,9 +45,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add token.json || echo "No token changes"
-          
+
           git commit -m "Auto-update: Refresh token and dashboard data [skip ci]" || echo "No changes to commit"
           git push
 

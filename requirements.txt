@@ -9,3 +9,5 @@ pytest
 openpyxl
 streamlit
 plotly
+google-cloud-bigquery
+pandas-gbq

@@ -5,6 +5,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from bigquery_writer import save_to_bigquery
 from config.logger import setup_logger
 from config.settings import Config, build_run_context
 from data_processor import compute_report_totals, load_report_dataframe
@@ -38,6 +39,17 @@ def run() -> int:
             "Data processing complete. total_sales=%s total_expenses=%s",
             totals.total_sales,
             totals.total_expenses,
+        )
+
+        # 2b. Persist to BigQuery (real-time dashboard feed)
+        save_to_bigquery(
+            report_date    = context.report_date,
+            shop_net_sales = totals.shop_net_sales,
+            shop_expenses  = totals.shop_expenses,
+            total_sales    = totals.total_sales,
+            total_expenses = totals.total_expenses,
+            is_morning     = context.is_morning,
+            logger         = logger,
         )
 
         # 3. Prepare Messaging Parameters
